@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="10dp"
-            android:text="Rp.30.000"
+            android:text="Rp30.000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_menu"
             app:layout_constraintTop_toBottomOf="@+id/tv_menu" />
