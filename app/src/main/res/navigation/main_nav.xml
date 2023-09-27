@@ -22,7 +22,6 @@
         <argument
             android:name="FoodMenu"
             app:argType="com.android.fastfood.model.FoodMenu"
-            app:nullable="true"
-            android:defaultValue="@null" />
+             />
     </fragment>
 </navigation>

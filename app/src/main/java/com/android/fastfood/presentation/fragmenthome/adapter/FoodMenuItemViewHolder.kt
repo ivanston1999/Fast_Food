@@ -2,6 +2,7 @@ package com.android.fastfood.presentation.fragmenthome.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.android.fastfood.core.ViewHolderBinder
 import com.android.fastfood.databinding.ItemGridListBinding
 import com.android.fastfood.databinding.ItemLinearListBinding
@@ -21,6 +22,7 @@ class LinearViewHolder(
     override fun bind(item: FoodMenu) {
         binding.ivMenu.load(item.imgFoodUrl){
             crossfade(true)
+            transformations(CircleCropTransformation())
         }
         binding.tvMenu.text = item.foodName
         binding.menuPrice.text = item.price.formatCurrency("Rp. ")
@@ -39,6 +41,7 @@ class GridViewHolder(
     override fun bind(item: FoodMenu) {
         binding.ivMenu.load(item.imgFoodUrl){
             crossfade(true)
+            transformations(CircleCropTransformation())
         }
         binding.tvMenuName.text = item.foodName
         binding.tvPrice.text = item.price.formatCurrency("Rp. ")

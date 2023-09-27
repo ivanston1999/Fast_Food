@@ -27,7 +27,7 @@ class FoodMenuAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            LayoutGridLinear.GRID.ordinal -> {
+            LayoutGridLinear.LINEAR.ordinal -> {
                 LinearViewHolder(
                     binding = ItemLinearListBinding.inflate(
                         LayoutInflater.from(parent.context),parent,false
