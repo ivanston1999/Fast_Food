@@ -35,16 +35,16 @@
             android:id="@+id/tv_menu"
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="0dp"
-            android:textSize="18dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:textColor="@color/black"
+            android:textSize="18dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_menu"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.24"
+            app:layout_constraintVertical_bias="0.343"
             tools:text="Mie" />
 
         <TextView
