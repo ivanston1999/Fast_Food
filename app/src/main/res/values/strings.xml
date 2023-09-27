@@ -3,4 +3,10 @@
     <string name="header_greetings">Hai Binarian,</string>
     <string name="header_asking">Mau makan apa kamu hari ini?\n</string>
     <string name="list_menu_makanan">List Menu Makanan</string>
+    <string name="menu_description">Description\n</string>
+    <string name="string_lokasi">Lokasi\n</string>
+    <string name="string_satu">1\n</string>
+    <string name="string_beli">Beli</string>
+    <string name="string_hitung">Beli - Rp. %1d</string>
+    <string name="string_location">Jl. Terusan Hang Lekir II Blok Mushola No.28 A, RT.9/RW.6, Gunung, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12220</string>
 </resources>
