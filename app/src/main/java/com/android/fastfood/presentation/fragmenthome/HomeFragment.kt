@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.fastfood.data.CategoryDataSource
@@ -15,6 +14,7 @@ import com.android.fastfood.data.FoodMenuDataSourceImpl
 import com.android.fastfood.databinding.FragmentHomeBinding
 import com.android.fastfood.model.Category
 import com.android.fastfood.model.FoodMenu
+import com.android.fastfood.presentation.detailactivity.DetailActivity
 import com.android.fastfood.presentation.fragmenthome.adapter.CategoryAdapter
 import com.android.fastfood.presentation.fragmenthome.adapter.FoodMenuAdapter
 import com.android.fastfood.presentation.fragmenthome.adapter.LayoutGridLinear
@@ -26,16 +26,16 @@ class HomeFragment : Fragment() {
     private val dataSource: FoodMenuDataSource by lazy {
         FoodMenuDataSourceImpl()
     }
+
     private val adapter: FoodMenuAdapter by lazy {
-        FoodMenuAdapter(LayoutGridLinear.LINEAR) { FoodMenu: FoodMenu ->
-            navigateToDetail(FoodMenu)
-        }
+        FoodMenuAdapter(
+            layoutGridLinear = LayoutGridLinear.LINEAR,
+            onClickListener = { navigateToDetail(it) }
+        )
     }
 
-    private fun navigateToDetail(foodMenu: FoodMenu) {
-        findNavController().navigate(
-            HomeFragmentDirections.actionHomeFragmentToDetailFragment(foodMenu)
-        )
+    private fun navigateToDetail(food: FoodMenu) {
+        DetailActivity.toDetail(requireContext(), food)
 
     }
 
@@ -53,6 +53,8 @@ class HomeFragment : Fragment() {
         linearOrGrid()
         switchLinearGrid()
         categoryList()
+
+
 
     }
 
@@ -76,7 +78,7 @@ class HomeFragment : Fragment() {
             adapter = this@HomeFragment.adapter
         }
         adapter.sendData(dataSource.getFood())
-5
+
     }
 
     private fun switchLinearGrid() {

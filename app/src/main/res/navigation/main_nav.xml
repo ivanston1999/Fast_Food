@@ -9,19 +9,15 @@
         android:id="@+id/homeFragment"
         android:name="com.android.fastfood.presentation.fragmenthome.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.android.fastfood.presentation.fragmentdetail.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
-        <argument
-            android:name="FoodMenu"
-            app:argType="com.android.fastfood.model.FoodMenu"
-             />
-    </fragment>
+        android:id="@+id/cartFragment"
+        android:name="com.android.fastfood.presentation.fragmentcart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.android.fastfood.presentation.fragmentProfile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
