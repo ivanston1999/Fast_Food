@@ -1,4 +1,4 @@
-package com.android.fastfood.data
+package com.android.fastfood.data.dummy
 
 import com.android.fastfood.model.Category
 

@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.fastfood.data.CategoryDataSource
-import com.android.fastfood.data.CategoryDataSourceImpl
-import com.android.fastfood.data.FoodMenuDataSource
-import com.android.fastfood.data.FoodMenuDataSourceImpl
+import com.android.fastfood.data.dummy.CategoryDataSource
+import com.android.fastfood.data.dummy.CategoryDataSourceImpl
+import com.android.fastfood.data.dummy.FoodMenuDataSource
+import com.android.fastfood.data.dummy.FoodMenuDataSourceImpl
 import com.android.fastfood.databinding.FragmentHomeBinding
 import com.android.fastfood.model.Category
 import com.android.fastfood.model.FoodMenu
