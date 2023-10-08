@@ -1,4 +1,4 @@
-package com.android.fastfood.data
+package com.android.fastfood.data.dummy
 
 import com.android.fastfood.model.FoodMenu
 
@@ -11,6 +11,7 @@ class FoodMenuDataSourceImpl(): FoodMenuDataSource {
     override fun getFood(): List<FoodMenu> = listOf(
 
         FoodMenu(
+            id = 1,
             foodName = "Sate Ayam",
             price = 28000.0,
             description = "Sate Ayam adalah hidangan Indonesia yang terdiri dari potongan daging ayam yang dimarinasi dengan rempah-rempah khas, ditusuk, dan dipanggang di atas bara api hingga kecokelatan.",
@@ -19,6 +20,7 @@ class FoodMenuDataSourceImpl(): FoodMenuDataSource {
         ),
 
         FoodMenu(
+            id = 2,
             foodName = "Ayam Panggang",
             price = 45000.0,
             description = "Nikmati kenikmatan gurih dan kecokelatan dengan Ayam Panggang kami yang lembut dan kulitnya yang renyah. Hidangan sempurna untuk memanjakan lidah Anda!",
@@ -27,6 +29,7 @@ class FoodMenuDataSourceImpl(): FoodMenuDataSource {
         ),
 
         FoodMenu(
+            id = 3,
             foodName = "Dimsum",
             price = 25000.0,
             description = "Cicipi kelezatan Dimsum, sajian makanan Asia yang lezat dan beragam! Gigitan-gigitan kecil berisi rasa yang menggugah selera, siap memanjakan lidah Anda",
@@ -35,6 +38,7 @@ class FoodMenuDataSourceImpl(): FoodMenuDataSource {
         ),
 
         FoodMenu(
+            id = 4,
             foodName = "Nasi Goreng",
             price = 30000.0,
             description = "Nasi Goreng, sajian klasik Asia yang menggoda selera! Rasakan perpaduan sempurna antara nasi yang gurih, bumbu rempah yang khas, dan bahan tambahan favorit Anda dalam setiap suapan",
@@ -43,6 +47,7 @@ class FoodMenuDataSourceImpl(): FoodMenuDataSource {
         ),
 
         FoodMenu(
+            id = 5,
             foodName = "Sate Taichan",
             price = 20000.0,
             description = "Nikmati kelezatan Sate Taican yang renyah dan beraroma, sajian lezat yang akan menggoyang lidah Anda hingga menjilat jari!",
@@ -51,6 +56,7 @@ class FoodMenuDataSourceImpl(): FoodMenuDataSource {
         ),
 
         FoodMenu(
+            id = 6,
             foodName = "Kebab",
             price = 13000.0,
             description = "Selami kelezatan Timur Tengah dengan setiap suapan kebab kami. Rasakan paduan sempurna daging yang empuk, rempah-rempah khas, dan saus lezat yang akan membuat Anda ketagihan.",
