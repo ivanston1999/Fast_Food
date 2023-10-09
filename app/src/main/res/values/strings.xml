@@ -14,4 +14,22 @@
     <string name="bottom_nav_profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cart_food_name">food_name</string>
+    <string name="cart_price">Rp. 40.000</string>
+    <string name="cart_order_notes">order notes</string>
+    <string name="counter_cart_1">1</string>
+    <string name="total_buy">x%s</string>
+    <string name="string_cart">Cart</string>
+    <string name="cart_total_price">Total Price</string>
+    <string name="string_check_out">Check Out</string>
+    <string name="text_delivery_method">Delivery Method</string>
+    <string name="text_pick_up">Pick Up</string>
+    <string name="text_delivery">Delivery</string>
+    <string name="text_payment_method">Payment Method\n</string>
+    <string name="text_cash">Cash</string>
+    <string name="text_e_wallet">E-Wallet</string>
+    <string name="shopping_summary">Shopping Summary</string>
+    <string name="order_confirmation">Order Confirmation</string>
+    <string name="empty">Empty</string>
+    <string name="string_add_cart">Add to Cart</string>
 </resources>

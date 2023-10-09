@@ -4,16 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragmentcart.CartFragment">
+    tools:context=".presentation.checkoutactivity.CheckOutActivity">
 
     <LinearLayout
         android:id="@+id/ll_action_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
         android:elevation="8dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/tv_title_toolbar"
@@ -21,35 +30,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:text="@string/string_cart"
-            android:textAlignment="center"
-            android:textStyle="bold" />
+            android:text="@string/order_confirmation" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_cart"
+    <include
+        android:id="@+id/layout_content"
+        layout="@layout/layout_section_content_order"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingBottom="16dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/cv_section_checkout"
-        app:layout_constraintTop_toBottomOf="@+id/ll_action_bar"
-        tools:listitem="@layout/item_cart" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cv_section_order"
+        app:layout_constraintTop_toBottomOf="@+id/ll_action_bar" />
 
     <include
         android:id="@+id/layout_state"
         layout="@layout/common_layout_content_state"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/cv_section_checkout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cv_section_checkout"
+        android:id="@+id/cv_section_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
