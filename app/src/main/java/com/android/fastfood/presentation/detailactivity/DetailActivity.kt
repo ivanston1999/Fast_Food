@@ -2,12 +2,23 @@ package com.android.fastfood.presentation.detailactivity
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
+import com.android.fastfood.data.local.database.AppDatabase
+import com.android.fastfood.data.local.database.datasource.CartDataSource
+import com.android.fastfood.data.local.database.datasource.CartDatabaseDataSource
+import com.android.fastfood.data.repository.CartRepository
+import com.android.fastfood.data.repository.CartRepositoryImpl
 import com.android.fastfood.databinding.ActivityDetailBinding
 import com.android.fastfood.model.FoodMenu
+import com.android.fastfood.utils.GenericViewModelFactory
 import com.android.fastfood.utils.currecyFormat
+import com.android.fastfood.utils.proceedWhen
 
 class DetailActivity : AppCompatActivity() {
 
@@ -15,31 +26,87 @@ class DetailActivity : AppCompatActivity() {
         ActivityDetailBinding.inflate(layoutInflater)
     }
 
-
+    private val viewModel: DetailViewModel by viewModels {
+        val database = AppDatabase.getInstance(this)
+        val cartDao = database.cartDao()
+        val cartDataSource: CartDataSource = CartDatabaseDataSource(cartDao)
+        val repo: CartRepository = CartRepositoryImpl(cartDataSource)
+        GenericViewModelFactory.create(
+            DetailViewModel(intent?.extras, repo)
+        )
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        val foodMenu = intent.getParcelableExtra(FOOD_DETAIL) as? FoodMenu
-        if (foodMenu != null) {
-            bindData(foodMenu)
+        bindMenu(viewModel?.foodMenu)
+        observeData()
+        setClickListener()
+
+    }
+
+    private fun setClickListener() {
+
+        binding.ivMinus.setOnClickListener{
+            viewModel.minus()
         }
-
+        binding.ivAdd.setOnClickListener{
+            viewModel.add()
+        }
+        binding.tvLocation.setOnClickListener {
+            viewModel.onLocationClicked()
+        }
+        binding.btnAddCart.setOnClickListener {
+            viewModel.addToCart()
+        }
     }
 
-    private fun bindData(foodMenu: FoodMenu) {
-        binding.ivFoodMenu.load(foodMenu.imgFoodUrl)
-        binding.tvMenuName.text = foodMenu.foodName
-        binding.tvPriceMenu.text = foodMenu.price.currecyFormat()
-        binding.tvDesc.text = foodMenu.description
-        binding.tvLocation.text = foodMenu.location
+    private fun observeData() {
+        viewModel.priceLiveData.observe(this){
+            binding.tvTotalPrice.text = it.currecyFormat()
+        }
+        viewModel.menuCountLiveData.observe(this){
+            binding.counter.text = it.toString()
+        }
+        viewModel.addToCartResult.observe(this) {
+            it.proceedWhen(
+                doOnSuccess = {
+                    Toast.makeText(this, "Add to cart success !", Toast.LENGTH_SHORT).show()
+                    finish()
+                }, doOnError = {
+                    Toast.makeText(this, it.exception?.message.orEmpty(), Toast.LENGTH_SHORT).show()
+                })
+        }
+        viewModel.navigateToMapsLiveData.observe(this) { location ->
+            location?.let {
+                navigateToMaps(location)
+            }
+        }
     }
 
+    private fun bindMenu(foodMenu: FoodMenu?) {
+        foodMenu?.let { item ->
+            binding.ivFoodMenu.load(item.imgFoodUrl) {
+                crossfade(true)
+            }
+            binding.tvMenuName.text = item.foodName
+            binding.tvDesc.text = item.description
+            binding.tvPriceMenu.text = item.price.currecyFormat()
+            binding.tvLocation.text = item.location
+        }
+    }
+
+    private fun navigateToMaps(location: String) {
+        val gmmIntentUri = Uri.parse("http://maps.google.com/?q=$location")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+//        mapIntent.setPackage("com.google.android.apps.maps")
+        startActivity(mapIntent)
+    }
 
     companion object {
-        private const val FOOD_DETAIL = "food_detail"
-        fun toDetail(context: Context, food: FoodMenu) {
+        const val FOOD_DETAIL = "food_detail"
+        fun toDetail(context: Context, foodMenu: FoodMenu) {
             val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra(FOOD_DETAIL, food)
+            intent.putExtra(FOOD_DETAIL, foodMenu)
             context.startActivity(intent)
         }
     }
