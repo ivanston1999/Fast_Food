@@ -32,4 +32,6 @@
     <string name="order_confirmation">Order Confirmation</string>
     <string name="empty">Empty</string>
     <string name="string_add_cart">Add to Cart</string>
+    <string name="string_nama_pengguna">Nama Pengguna</string>
+    <string name="string_username_profile">Username</string>
 </resources>

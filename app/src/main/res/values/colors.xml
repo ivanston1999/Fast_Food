@@ -3,5 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="app_color_primary">#DCA6A6</color>
-    <color name="transparent">#DBD8D8</color>
+    <color name="transparent">#F1F1F1</color>
+
 </resources>
