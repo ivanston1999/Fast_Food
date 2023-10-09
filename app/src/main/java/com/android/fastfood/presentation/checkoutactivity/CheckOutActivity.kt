@@ -49,6 +49,10 @@ class CheckOutActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+        binding.btnCheckout.setOnClickListener {
+            val successDialog = SuccessDialogFragment()
+            successDialog.show(supportFragmentManager, "Success Dialog")
+        }
 
     }
 
