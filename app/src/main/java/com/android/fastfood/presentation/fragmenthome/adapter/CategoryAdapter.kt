@@ -45,8 +45,6 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
 
 
 
-
-
 class CategoryViewHolder(
     private val binding: ItemCategoryBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
