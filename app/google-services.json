@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "668769032736",
+    "project_id": "fastfood-auth-1763f",
+    "storage_bucket": "fastfood-auth-1763f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668769032736:android:817e9ff009d258c72d7a45",
+        "android_client_info": {
+          "package_name": "com.android.fastfood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAudvY9NEJ1xXNE_uViYDngUPo-PSphKDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

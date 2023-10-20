@@ -55,7 +55,6 @@ class HomeFragment : Fragment() {
         categoryList()
 
 
-
     }
 
     private fun categoryList() {

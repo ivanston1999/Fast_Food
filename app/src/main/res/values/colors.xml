@@ -4,5 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="app_color_primary">#DCA6A6</color>
     <color name="transparent">#F1F1F1</color>
+    <color name="red_text">#F50057</color>
+
 
 </resources>
