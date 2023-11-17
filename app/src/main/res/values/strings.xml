@@ -31,6 +31,7 @@
     <string name="shopping_summary">Shopping Summary</string>
     <string name="order_confirmation">Order Confirmation</string>
     <string name="empty">Empty</string>
+    <string name="total_quantity">x%s</string>
     <string name="string_add_cart">Add to Cart</string>
     <string name="string_nama_pengguna">Nama Pengguna</string>
     <string name="string_username_profile">Username</string>
@@ -53,5 +54,8 @@
     <string name="text_change_profile">Change Profile</string>
     <string name="text_change_password">Change Password</string>
     <string name="text_logout">Logout</string>
+    <string name="text_ok">Ok</string>
+    <string name="text_cart_is_empty">Cart is Empty</string>
+    <string name="product_not_found">Not Found\n</string>
 
 </resources>

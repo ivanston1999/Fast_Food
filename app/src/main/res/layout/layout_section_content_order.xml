@@ -162,6 +162,21 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:itemCount="3"
                     tools:listitem="@layout/item_cost" />
+                
+                <TextView
+                    android:id="@+id/tv_total_buy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rp 100000"
+                    android:maxLines="1"
+                    android:layout_marginHorizontal="8dp"
+
+
+                    />
+
+
+
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

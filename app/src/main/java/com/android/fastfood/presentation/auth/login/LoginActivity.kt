@@ -9,15 +9,12 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.android.fastfood.R
 import com.android.fastfood.databinding.ActivityLoginBinding
-import com.android.fastfood.presentation.auth.firebase.FirebaseAuthDataSourceImpl
-import com.android.fastfood.presentation.auth.firebase.repository.UserRepositoryImpl
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.android.fastfood.presentation.auth.register.RegisterActivity
 import com.android.fastfood.presentation.main.MainActivity
-import com.android.fastfood.utils.GenericViewModelFactory
 import com.android.fastfood.utils.highLightWord
 import com.android.fastfood.utils.proceedWhen
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
@@ -25,16 +22,8 @@ class LoginActivity : AppCompatActivity() {
         ActivityLoginBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: LoginViewModel by viewModels {
-        GenericViewModelFactory.create(createViewModel())
-    }
+    private val viewModel: LoginViewModel by viewModel()
 
-    private fun createViewModel(): LoginViewModel {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val dataSource = FirebaseAuthDataSourceImpl(firebaseAuth)
-        val repo = UserRepositoryImpl(dataSource)
-        return LoginViewModel(repo)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

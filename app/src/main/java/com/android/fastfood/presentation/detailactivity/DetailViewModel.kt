@@ -16,8 +16,8 @@ class DetailViewModel (private val extras: Bundle?, private val cartRepository: 
 
     val foodMenu = extras?.getParcelable<FoodMenu>(DetailActivity.FOOD_DETAIL)
 
-    val priceLiveData = MutableLiveData<Double>().apply {
-        postValue(0.0)
+    val priceLiveData = MutableLiveData<Int>().apply {
+        postValue(0)
     }
     val menuCountLiveData = MutableLiveData<Int>().apply {
         postValue(0)
@@ -38,14 +38,14 @@ class DetailViewModel (private val extras: Bundle?, private val cartRepository: 
     fun add() {
         val count = (menuCountLiveData.value ?: 0) + 1
         menuCountLiveData.postValue(count)
-        priceLiveData.postValue(foodMenu?.price?.times(count) ?: 0.0)
+        priceLiveData.postValue(foodMenu?.price?.times(count) ?: 0)
     }
 
     fun minus() {
         if((menuCountLiveData.value ?: 0) > 0){
             val count = (menuCountLiveData.value ?: 0) -1
             menuCountLiveData.postValue(count)
-            priceLiveData.postValue(foodMenu?.price?.times(count) ?: 0.0)
+            priceLiveData.postValue(foodMenu?.price?.times(count) ?: 0)
         }
     }
 

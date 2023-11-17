@@ -2,43 +2,41 @@ package com.android.fastfood.data.local.database.datasource
 
 import com.android.fastfood.data.local.database.dao.CartDao
 import com.android.fastfood.data.local.database.entitiy.CartEntity
-import com.android.fastfood.data.local.database.relation.FoodMenuCartRelation
 import kotlinx.coroutines.flow.Flow
+
 
 interface CartDataSource {
 
-    fun getAllCarts(): Flow<List<FoodMenuCartRelation>>
-    fun getCartById(cartId: Int): Flow<FoodMenuCartRelation>
-    suspend fun insertCart(cart: CartEntity): Long
-    suspend fun insertCarts(cart: List<CartEntity>)
+    fun getAllCarts(): Flow<List<CartEntity>>
+    fun getCartById(cartId: Int): Flow<CartEntity>
+    suspend fun insertCart(cart: CartEntity) : Long
     suspend fun deleteCart(cart: CartEntity): Int
     suspend fun updateCart(cart: CartEntity): Int
-
+    suspend fun deleteAllCarts()
 }
 
-class CartDatabaseDataSource(private val CartDao: CartDao): CartDataSource {
-    override fun getAllCarts(): Flow<List<FoodMenuCartRelation>> {
-        return CartDao.getAllCarts()
+class CartDatabaseDataSource(private val cartDao: CartDao) : CartDataSource {
+    override fun getAllCarts(): Flow<List<CartEntity>> {
+        return cartDao.getAllCarts()
     }
 
-    override fun getCartById(cartId: Int): Flow<FoodMenuCartRelation> {
-        return CartDao.getCartById(cartId)
+    override fun getCartById(cartId: Int): Flow<CartEntity> {
+        return cartDao.getCartById(cartId)
     }
 
     override suspend fun insertCart(cart: CartEntity): Long {
-        return CartDao.insertCart(cart)
-    }
-
-    override suspend fun insertCarts(cart: List<CartEntity>) {
-        return CartDao.insertCarts(cart)
+        return cartDao.insertCart(cart)
     }
 
     override suspend fun deleteCart(cart: CartEntity): Int {
-        return CartDao.deleteCart(cart)
+        return cartDao.deleteCart(cart)
     }
 
     override suspend fun updateCart(cart: CartEntity): Int {
-        return CartDao.updateCart(cart)
+        return cartDao.updateCart(cart)
     }
 
+    override suspend fun deleteAllCarts() {
+        return cartDao.deleteAllCarts()
+    }
 }

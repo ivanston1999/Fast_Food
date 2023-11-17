@@ -9,11 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.android.fastfood.R
-import com.android.fastfood.data.local.database.AppDatabase
-import com.android.fastfood.data.local.database.datasource.CartDataSource
-import com.android.fastfood.data.local.database.datasource.CartDatabaseDataSource
-import com.android.fastfood.data.repository.CartRepository
-import com.android.fastfood.data.repository.CartRepositoryImpl
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.android.fastfood.databinding.FragmentCartBinding
 import com.android.fastfood.model.Cart
 import com.android.fastfood.presentation.checkoutactivity.CheckOutActivity
@@ -23,6 +19,7 @@ import com.android.fastfood.utils.GenericViewModelFactory
 import com.android.fastfood.utils.currecyFormat
 import com.android.fastfood.utils.hideKeyboard
 import com.android.fastfood.utils.proceedWhen
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 
 
 class CartFragment : Fragment() {
@@ -30,13 +27,7 @@ class CartFragment : Fragment() {
 
     private lateinit var binding: FragmentCartBinding
 
-    private val viewModel: CartViewModel by viewModels {
-        val database = AppDatabase.getInstance(requireContext())
-        val cartDao = database.cartDao()
-        val cartDataSource: CartDataSource = CartDatabaseDataSource(cartDao)
-        val repo: CartRepository = CartRepositoryImpl(cartDataSource)
-        GenericViewModelFactory.create(CartViewModel(repo))
-    }
+    private val viewModel: CartViewModel by viewModel()
 
     private val adapter: CartListAdapter by lazy {
         CartListAdapter(object : CartListener {
@@ -85,45 +76,38 @@ class CartFragment : Fragment() {
         binding.rvCart.adapter = adapter
     }
 
-    private fun observeData()  {
-        viewModel.cartList.observe(viewLifecycleOwner) { result ->
-            result.proceedWhen(
-                doOnSuccess =
-                {
-                    binding.rvCart.isVisible = true
-                    binding.layoutState.root.isVisible= false
-                    binding.layoutState.pbLoading.isVisible = false
-                    binding.layoutState.tvError.isVisible = false
-                    result.payload?.let{ (carts, totalPrice) ->
-                        adapter.submitData(carts)
-                        binding.tvTotalPrice.text = totalPrice.currecyFormat()
-                    }
-                },
-                doOnError =
-                {
-                    binding.layoutState.root.isVisible = true
-                    binding.layoutState.tvError.isVisible = true
-                    binding.layoutState.tvError.text = it.exception?.message.orEmpty()
-                    binding.layoutState.pbLoading.isVisible = false
-                },
-                doOnLoading =
-                {
-                    binding.layoutState.root.isVisible = true
-                    binding.layoutState.tvError.isVisible = false
-                    binding.layoutState.pbLoading.isVisible = true
-                    binding.rvCart.isVisible = false
-                },
-                doOnEmpty =
-                {
-                    binding.layoutState.root.isVisible = true
-                    binding.layoutState.pbLoading.isVisible = false
-                    binding.layoutState.tvError.isVisible = true
-                    binding.layoutState.tvError.text = getString(R.string.empty)
-                    it.payload?.let { (_, totalPrice) ->
-                        binding.tvTotalPrice.text = totalPrice.currecyFormat()
-                    }
-                    binding.rvCart.isVisible = false
-                })
+    private fun observeData() {
+        viewModel.cartList.observe(viewLifecycleOwner) {
+            it.proceedWhen(doOnSuccess = { result ->
+                binding.layoutState.root.isVisible = false
+                binding.layoutState.pbLoading.isVisible = false
+                binding.layoutState.tvError.isVisible = false
+                binding.rvCart.isVisible = true
+                result.payload?.let { (carts, totalPrice) ->
+                    adapter.submitData(carts)
+                    binding.tvTotalPrice.text = totalPrice.currecyFormat()
+                }
+            }, doOnLoading = {
+                binding.layoutState.root.isVisible = true
+                binding.layoutState.pbLoading.isVisible = true
+                binding.layoutState.tvError.isVisible = false
+                binding.rvCart.isVisible = false
+            }, doOnError = { err ->
+                binding.layoutState.root.isVisible = true
+                binding.layoutState.pbLoading.isVisible = false
+                binding.layoutState.tvError.isVisible = true
+                binding.layoutState.tvError.text = err.exception?.message.orEmpty()
+                binding.rvCart.isVisible = false
+            }, doOnEmpty = { data ->
+                binding.layoutState.root.isVisible = true
+                binding.layoutState.pbLoading.isVisible = false
+                binding.layoutState.tvError.isVisible = true
+                binding.layoutState.tvError.text = getString(R.string.text_cart_is_empty)
+                data.payload?.let { (_, totalPrice) ->
+                    binding.tvTotalPrice.text = totalPrice.currecyFormat()
+                }
+                binding.rvCart.isVisible = false
+            })
         }
     }
 

@@ -5,34 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import com.android.fastfood.R
 import com.android.fastfood.databinding.ActivityRegisterBinding
-import com.android.fastfood.presentation.auth.firebase.FirebaseAuthDataSourceImpl
-import com.android.fastfood.presentation.auth.firebase.repository.UserRepositoryImpl
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.android.fastfood.presentation.auth.login.LoginActivity
 import com.android.fastfood.presentation.main.MainActivity
-import com.android.fastfood.utils.GenericViewModelFactory
 import com.android.fastfood.utils.highLightWord
 import com.android.fastfood.utils.proceedWhen
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
     private val binding: ActivityRegisterBinding by lazy {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
-    private val viewModel: RegisterViewModel by viewModels {
-        GenericViewModelFactory.create(createViewModel())
-    }
-
-    private fun createViewModel(): RegisterViewModel {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val dataSource = FirebaseAuthDataSourceImpl(firebaseAuth)
-        val repo = UserRepositoryImpl(dataSource)
-        return RegisterViewModel(repo)
-    }
+    private val viewModel: RegisterViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

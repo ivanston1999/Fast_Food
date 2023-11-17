@@ -10,7 +10,7 @@ import coil.transform.CircleCropTransformation
 import com.android.fastfood.databinding.ItemCategoryBinding
 import com.android.fastfood.model.Category
 
-class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
+class CategoryAdapter(private val itemClick: (Category) -> Unit) : RecyclerView.Adapter<CategoryViewHolder>() {
 
     private val differ = AsyncListDiffer(this, object : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
@@ -28,12 +28,8 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
 
-        return CategoryViewHolder(
-            binding = ItemCategoryBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-        )
-
+        val binding = ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CategoryViewHolder(binding, itemClick)
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
@@ -47,12 +43,17 @@ class CategoryAdapter() : RecyclerView.Adapter<CategoryViewHolder>() {
 
 class CategoryViewHolder(
     private val binding: ItemCategoryBinding,
+    val itemClick: (Category) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Category) {
-        binding.ivCategory
-            .load(item.imgCategoryUrl){
-            transformations(CircleCropTransformation())}
-        binding.tvCategoryName.text = item.categoryName
+        with(item) {
+            binding.ivCategory
+                .load(item.imgCategoryUrl) {
+                    transformations(CircleCropTransformation())
+                }
+            binding.tvCategoryName.text = item.categoryName
+            itemView.setOnClickListener { itemClick(this) }
+        }
     }
 
 }

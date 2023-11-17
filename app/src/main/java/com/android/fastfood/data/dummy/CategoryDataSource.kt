@@ -10,6 +10,10 @@ interface CategoryDataSource{
 class CategoryDataSourceImpl: CategoryDataSource {
     override fun getCategory(): List<Category> = listOf(
         Category(
+            categoryName = "All",
+            imgCategoryUrl = "https://raw.githubusercontent.com/hermasyp/CH3-asset-code-challenge/master/categories/ic_all_category.png"
+        ),
+        Category(
             categoryName = "Burger",
             imgCategoryUrl = "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJ1cmdlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=600&q=60"
         ),

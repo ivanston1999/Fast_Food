@@ -47,7 +47,7 @@ class FoodMenuAdapter(
     override fun getItemViewType(position: Int): Int {
         return layoutGridLinear.ordinal
     }
-    fun sendData(data : List<FoodMenu>){
+    fun submitData(data : List<FoodMenu>){
         dataDiffer.submitList(data)
     }
 

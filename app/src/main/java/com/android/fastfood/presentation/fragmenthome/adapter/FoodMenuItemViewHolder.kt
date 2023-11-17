@@ -7,6 +7,7 @@ import com.android.fastfood.core.ViewHolderBinder
 import com.android.fastfood.databinding.ItemGridListBinding
 import com.android.fastfood.databinding.ItemLinearListBinding
 import com.android.fastfood.model.FoodMenu
+import com.android.fastfood.utils.currecyFormat
 
 
 private fun Double.formatCurrency(currencySymbol: String): String {
@@ -25,7 +26,7 @@ class LinearViewHolder(
             transformations(CircleCropTransformation())
         }
         binding.tvMenu.text = item.foodName
-        binding.menuPrice.text = item.price.formatCurrency("Rp. ")
+        binding.menuPrice.text = item.price.currecyFormat()
         binding.root.setOnClickListener{
             onClickListener.invoke(item)
         }
@@ -44,7 +45,7 @@ class GridViewHolder(
             transformations(CircleCropTransformation())
         }
         binding.tvMenuName.text = item.foodName
-        binding.tvPrice.text = item.price.formatCurrency("Rp. ")
+        binding.tvPrice.text = item.price.currecyFormat()
         binding.root.setOnClickListener{
             onClickListener.invoke(item)
         }
