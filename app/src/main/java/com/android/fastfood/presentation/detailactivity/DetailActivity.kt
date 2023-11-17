@@ -8,17 +8,18 @@ import android.view.Menu
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import coil.load
-import com.android.fastfood.data.local.database.AppDatabase
-import com.android.fastfood.data.local.database.datasource.CartDataSource
-import com.android.fastfood.data.local.database.datasource.CartDatabaseDataSource
-import com.android.fastfood.data.repository.CartRepository
-import com.android.fastfood.data.repository.CartRepositoryImpl
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 import com.android.fastfood.databinding.ActivityDetailBinding
 import com.android.fastfood.model.FoodMenu
 import com.android.fastfood.utils.GenericViewModelFactory
 import com.android.fastfood.utils.currecyFormat
 import com.android.fastfood.utils.proceedWhen
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailActivity : AppCompatActivity() {
 
@@ -26,14 +27,8 @@ class DetailActivity : AppCompatActivity() {
         ActivityDetailBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: DetailViewModel by viewModels {
-        val database = AppDatabase.getInstance(this)
-        val cartDao = database.cartDao()
-        val cartDataSource: CartDataSource = CartDatabaseDataSource(cartDao)
-        val repo: CartRepository = CartRepositoryImpl(cartDataSource)
-        GenericViewModelFactory.create(
-            DetailViewModel(intent?.extras, repo)
-        )
+    private val viewModel: DetailViewModel by viewModel {
+        parametersOf(intent.extras ?: bundleOf())
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +57,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun observeData() {
         viewModel.priceLiveData.observe(this){
-            binding.tvTotalPrice.text = it.currecyFormat()
+            binding.tvTotalPrice.text = it.toString()
         }
         viewModel.menuCountLiveData.observe(this){
             binding.counter.text = it.toString()

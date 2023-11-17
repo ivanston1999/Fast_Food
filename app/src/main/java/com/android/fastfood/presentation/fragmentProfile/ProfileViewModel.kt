@@ -13,10 +13,9 @@ import kotlinx.coroutines.launch
 class ProfileViewModel(private val repo: UserRepository) : ViewModel() {
 
     private val _changePhotoResult = MutableLiveData<ResultWrapper<Boolean>>()
+    private val _changeProfileResult = MutableLiveData<ResultWrapper<Boolean>>()
     val changePhotoResult: LiveData<ResultWrapper<Boolean>>
         get() = _changePhotoResult
-
-    private val _changeProfileResult = MutableLiveData<ResultWrapper<Boolean>>()
     val changeProfileResult: LiveData<ResultWrapper<Boolean>>
         get() = _changeProfileResult
 

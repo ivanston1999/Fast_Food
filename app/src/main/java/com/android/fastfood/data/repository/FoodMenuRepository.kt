@@ -1,44 +1,36 @@
 package com.android.fastfood.data.repository
 
-import com.android.fastfood.data.dummy.CategoryDataSource
-import com.android.fastfood.data.local.database.datasource.FoodMenuDataSource
-import com.android.fastfood.data.local.database.mapper.toFoodMenuList
+import android.view.Menu
+import com.android.fastfood.data.network.api.datasource.FoodMenuDataSource
+import com.android.fastfood.data.network.api.model.category.toCategoryList
+import com.android.fastfood.data.network.api.model.menu.toMenuList
 import com.android.fastfood.model.Category
 import com.android.fastfood.model.FoodMenu
 import com.android.fastfood.utils.ResultWrapper
-import com.android.fastfood.utils.proceed
-import kotlinx.coroutines.delay
+import com.android.fastfood.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
+
 
 interface FoodMenuRepository {
 
-    fun getCategories(): List<Category>
-    fun getFoodMenu(): Flow<ResultWrapper<List<FoodMenu>>>
+    fun getCategories(): Flow<ResultWrapper<List<Category>>>
+    fun getFoodMenu(category: String? = null): Flow<ResultWrapper<List<FoodMenu>>>
 
 }
 
 class FoodMenuRepositoryImpl(
-    private val foodMenuDataSource: FoodMenuDataSource,
-    private val dummyCategoryDataSource: CategoryDataSource,
+    private val apiDataSource: FoodMenuDataSource,
+) : FoodMenuRepository {
 
-    ) : FoodMenuRepository {
-    override fun getCategories(): List<Category> {
-
-        return dummyCategoryDataSource.getCategory()
-    }
-
-    override fun getFoodMenu(): Flow<ResultWrapper<List<FoodMenu>>> {
-
-        return foodMenuDataSource.getAllFoodMenu().map {
-            proceed { it.toFoodMenuList() }
-        }.onStart {
-            emit(ResultWrapper.Loading())
-            delay(2000)
+    override fun getCategories(): Flow<ResultWrapper<List<Category>>> {
+        return proceedFlow {
+            apiDataSource.getCategories().data?.toCategoryList() ?: emptyList()
         }
-
     }
 
-
+    override fun getFoodMenu(category: String?): Flow<ResultWrapper<List<FoodMenu>>> {
+        return proceedFlow {
+            apiDataSource.getProducts(category).data?.toMenuList() ?: emptyList()
+        }
+    }
 }

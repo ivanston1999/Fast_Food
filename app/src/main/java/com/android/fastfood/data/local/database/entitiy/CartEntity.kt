@@ -18,5 +18,14 @@ data class CartEntity (
     var itemQuantity: Int = 0,
 
     @ColumnInfo("order_notes")
-    var orderNotes: String? = null
+    var orderNotes: String? = null,
+
+    @ColumnInfo("food_name")
+    var foodName: String,
+
+    @ColumnInfo("food_price")
+    var foodPrice: Int,
+
+    @ColumnInfo("img_food_url")
+    var imgFoodUrl: String
     )

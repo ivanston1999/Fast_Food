@@ -8,7 +8,8 @@ import java.util.UUID
 data class FoodMenu(
     val id: Int? = null,
     val foodName: String,
-    val price: Double,
+    val price: Int,
+    val priceFormat: String,
     val description: String,
     val location: String,
     val imgFoodUrl: String,
