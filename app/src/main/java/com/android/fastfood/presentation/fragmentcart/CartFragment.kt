@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.android.fastfood.R
@@ -67,7 +68,11 @@ class CartFragment : Fragment() {
 
     private fun setClickListener() {
         binding.btnCheckout.setOnClickListener {
-            context?.startActivity(Intent(requireContext(), CheckOutActivity::class.java))
+            if (viewModel.cartNotEmpty()) {
+                context?.startActivity(Intent(requireContext(), CheckOutActivity::class.java))
+            } else {
+                Toast.makeText(requireContext(), "Failed to Checkout, Cart Empty!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
